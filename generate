@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+
+mkdir -p output
+
+declare -a faviconSizes=(196 128 96 32 16)
+declare -a appleTouchIconSizes=(152 144 120 114 76 72 60 57)
+
+for i in "${faviconSizes[@]}"
+do
+    convert -resize "$i"x"$i" favicon-master.png output/favicon-"$i".png
+done
+
+for i in "${appleTouchIconSizes[@]}"
+do
+    convert -resize "$i"x"$i" favicon-master.png output/favicon-apple-touch-icon-"$i".png
+done
+
+convert favicon-master.png -define icon:auto-resize=64,48,32,16 output/favicon.ico
